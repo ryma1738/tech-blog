@@ -49,14 +49,31 @@ router.post('/', (req, res) => {
     }); 
 });
 
+router.post('/signup', (req, res) => {
+    User.create({
+        username: req.body.username,
+        password: req.body.password
+    }).then(data => {
+        req.session.save(() => {
+            req.session.user_id = data.id;
+            req.session.username = data.username;
+            req.session.loggedIn = true;
+            res.redirect('/home');
+        }).catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        })
+    });
+});
+
 router.post('/login', (req, res) => {
     User.findOne({
       where: {
-        email: req.body.email
+        username: req.body.username
       }
     }).then(data => {
       if (!data) {
-        res.status(400).json({ message: 'No user with that email address!' });
+        res.status(400).json({ message: 'No user with that username!' });
         return;
       }
   
