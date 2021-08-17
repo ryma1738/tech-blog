@@ -5,15 +5,21 @@ router.get('/', (req, res) => {
     if (req.session.loggedIn) {
         res.redirect('/home');
     }
-    res.render('landing-page', req.session.loggedIn);
+    res.render('landing-page', {
+        loggedIn: req.session.loggedIn
+    });
 });
 
 router.get('/home', (req, res) => {
-    res.render('home', req.session.loggedIn);
+    res.render('home', {
+        loggedIn: req.session.loggedIn
+    });
 });
 
 router.get('/dashboard', (req, res) => {
-    res.render('dashboard', req.session.loggedIn);
+    res.render('dashboard', {
+        loggedIn: req.session.loggedIn
+    });
 });
 
 module.exports = router;

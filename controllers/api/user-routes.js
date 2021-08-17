@@ -59,11 +59,11 @@ router.post('/signup', (req, res) => {
             req.session.username = data.username;
             req.session.loggedIn = true;
             res.redirect('/home');
-        }).catch(err => {
-            console.log(err);
-            res.status(500).json(err);
-        })
-    });
+        });
+    }).catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+  });
 });
 
 router.post('/login', (req, res) => {
@@ -88,7 +88,7 @@ router.post('/login', (req, res) => {
         req.session.user_id = data.id;
         req.session.username = data.username;
         req.session.loggedIn = true;
-        redirect('/dashboard');
+        res.redirect('/dashboard');
         res.json({ user: data, message: 'You are now logged in!' });
       });
     });
