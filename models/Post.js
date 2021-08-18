@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require('sequelize');
+const { Model, DataTypes, Sequelize } = require('sequelize');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/connection');
 
@@ -27,16 +27,15 @@ Post.init(
             model: 'user',
             key: 'id'
         }
-    },
-    comments: {
-        type: DataTypes.ARRAY
     }
   },
   {
     sequelize,
-    timestamps: false,
     freezeTableName: true,
     underscored: true,
+    timestamps: true,
+    createdAt: true,
+    updatedAt: false,
     modelName: 'post'
   }
 );

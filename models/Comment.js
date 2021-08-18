@@ -31,13 +31,16 @@ Comment.init(
             model: 'post',
             key: 'id'
         }
-    }
+    },
+
   },
   {
     sequelize,
-    timestamps: false,
     freezeTableName: true,
     underscored: true,
+    timestamps: true,
+    createdAt: true,
+    updatedAt: false,
     modelName: 'comment'
   }
 );
