@@ -50,19 +50,33 @@ router.post('/', (req, res) => {
 });
 
 router.post('/signup', (req, res) => {
-    User.create({
+  User.findOne({
+    where: {
+      username: req.body.username
+    },
+    attributes: {exclude: ['password']}
+  }).then(data => {
+    if (data) {
+      res.status(409).json({message: 'A user with that username already exists!'})
+    } else {
+      User.create({
         username: req.body.username,
         password: req.body.password
-    }).then(data => {
+      }).then(data => {
         req.session.save(() => {
             req.session.user_id = data.id;
             req.session.username = data.username;
             req.session.loggedIn = true;
-            res.redirect('/home');
+            res.redirect('/'); //need to update the views with new data
         });
-    }).catch(err => {
-      console.log(err);
-      res.status(500).json(err);
+      }).catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+    }
+  }).catch(err => {
+    console.log(err);
+    res.status(500).json(err);
   });
 });
 
@@ -83,13 +97,12 @@ router.post('/login', (req, res) => {
         res.status(400).json({ message: 'Incorrect password!' });
         return;
       }
-  
+
       req.session.save(() => {
         req.session.user_id = data.id;
         req.session.username = data.username;
         req.session.loggedIn = true;
-        res.redirect('/dashboard');
-        res.json({ user: data, message: 'You are now logged in!' });
+        res.redirect('/');
       });
     });
   });
@@ -97,11 +110,9 @@ router.post('/login', (req, res) => {
   router.post('/logout', (req, res) => {
     if (req.session.loggedIn) {
       req.session.destroy(() => {
+        res.redirect('/');
         res.status(204).end();
       });
-    }
-    else {
-      res.status(404).end();
     }
   });
 

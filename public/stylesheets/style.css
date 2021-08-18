@@ -16,9 +16,19 @@ body {
     text-shadow: 1px 1px 5px black;
 }
 
-nav a {
-    text-decoration: none;
+nav a,
+nav button {
     text-shadow: 1px 1px 3px black;
+}
+
+nav button {
+    text-decoration: none;
+    background: none;
+    border: none;
+}
+
+nav button:focus {
+    outline: none;
 }
 
 .bar {

@@ -27,14 +27,14 @@
             </div>
         </div>
 
-        <div class="col-2"></div>
+        <div class="col-1"></div>
 
-        <div class="col-4 mb-4">
+        <div class="col-5 mb-4">
           <div class="pt-5 me-5 align-bottom">
-            <a href="/home" class="text-white fs-3 px-2">Home</a>
+            <button onclick="window.location.href='/home'" class="text-white fs-3 px-2">Home</button>
             {{#if loggedIn}}
-              <a href="/dashboard" class="text-white fs-3 px-2">dashboard</a>
-              <a href="/api/user/logout" class="text-white fs-3 px-2">logout</a>
+              <button onclick="window.location.href='/dashboard'" class="text-white fs-3 px-2">Dashboard</button>
+              <button class="text-white fs-3 px-2" id="logout">Logout</button>
             {{/if}}
           </div>
         </div>
