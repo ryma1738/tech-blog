@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
+const {Post, Comment, User} = require('../models');
 
 router.get('/', (req, res) => {
     console.log(req.session.loggedIn);
@@ -12,14 +13,63 @@ router.get('/', (req, res) => {
 });
 
 router.get('/home', (req, res) => {
-    res.render('home', {
-        loggedIn: req.session.loggedIn
+    Post.findAll({
+        include: [
+            {
+                model: Comment,
+                attributes: ['id', 'text', 'createdAt'],
+                include: {
+                    model: User,
+                    attributes: ['id', 'username']
+                }
+            },
+            {
+                model: User,
+                attributes: ['username']
+            }
+        ]
+    })
+    .then(data => {
+        const posts = data.map(post => post.get({plain: true}));
+        console.log(req.session.loggedIn)
+        res.render('home', {
+            posts,
+            loggedIn: req.session.loggedIn   
+        });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
     });
 });
 
 router.get('/dashboard', (req, res) => {
-    res.render('dashboard', {
-        loggedIn: req.session.loggedIn
+    Post.findAll({
+        include: [
+            {
+                model: Comment,
+                attributes: ['id', 'text', 'createdAt'],
+                include: {
+                    model: User,
+                    attributes: ['id', 'username']
+                }
+            },
+            {
+                model: User,
+                attributes: ['username']
+            }
+        ]
+    })
+    .then(data => {
+        const posts = data.map(post => post.get({plain: true}));
+        res.render('dashboard', {
+            loggedIn: req.session.loggedIn,
+            posts   
+        });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
     });
 });
 

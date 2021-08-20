@@ -30,8 +30,16 @@ nav button:focus {
 
 .bar {
     box-shadow: 0px 0px 5px black;
-    height: 100vh;
     border-radius: 5px;
+}
+
+.post-box {
+    border: 1px solid rgb(63, 63, 63);
+    box-shadow: 1px 1px 3px black;
+    border-radius: 5px;
+}
+.bg-silver {
+    background-color: rgb(206, 206, 206);
 }
 
 @media screen and (max-width: 1740px){
