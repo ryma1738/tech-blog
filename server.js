@@ -15,14 +15,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // handlebars
 const hbs = handlebars.create({ helpers });
-app.engine('handlebars', hbs.engine);
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main',
+}));
 app.set('view engine', 'handlebars');
 
 //Sessions:
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const sess = {
-  secret: process.env.SECRET,
+  secret: 'rxby795ryma173869420',
   cookie: {},
   resave: false,
   saveUninitialized: true,
