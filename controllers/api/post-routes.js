@@ -92,6 +92,7 @@ router.delete('/:id', (req, res) => {
         res.json(data);
     }).catch(err => {
         res.status(500).json(err);
+        console.log(err);
     })
 });
 

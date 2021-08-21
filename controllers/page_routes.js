@@ -31,7 +31,6 @@ router.get('/home', (req, res) => {
     })
     .then(data => {
         const posts = data.map(post => post.get({plain: true}));
-        console.log(req.session.loggedIn)
         res.render('home', {
             posts,
             loggedIn: req.session.loggedIn   
@@ -44,7 +43,13 @@ router.get('/home', (req, res) => {
 });
 
 router.get('/dashboard', (req, res) => {
+    if (!req.session.loggedIn) {
+        res.redirect('/');
+    }
     Post.findAll({
+        where: {
+            user_id: req.session.user_id
+        },
         include: [
             {
                 model: Comment,
