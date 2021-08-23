@@ -68,6 +68,7 @@ router.post('/signup', (req, res) => {
             req.session.username = data.username;
             req.session.loggedIn = true;
             res.redirect('/'); //need to update the views with new data
+            return;
         });
       }).catch(err => {
         console.log(err);
@@ -103,6 +104,7 @@ router.post('/login', (req, res) => {
         req.session.username = data.username;
         req.session.loggedIn = true;
         res.redirect('/');
+        return;
       });
     });
   });
@@ -111,7 +113,7 @@ router.post('/login', (req, res) => {
     if (req.session.loggedIn) {
       req.session.destroy(() => {
         res.redirect('/');
-        res.status(204).end();
+        return;
       });
     }
   });

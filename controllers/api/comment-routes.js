@@ -71,7 +71,8 @@ router.get('/user/:id', (req, res) => {
         ]
     }).then(data => {
         if (!data) {
-            res.status(404).json({ message: 'No Comments found for user' }) 
+            res.status(404).json({ message: 'No Comments found for user' })
+            return;
         }
         res.status(200).json(data);
     }).catch(err => {

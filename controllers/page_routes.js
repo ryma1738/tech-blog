@@ -6,6 +6,7 @@ router.get('/', (req, res) => {
     console.log(req.session.loggedIn);
     if (req.session.loggedIn) {
         res.redirect('/home');
+        return;
     }
     res.render('landing-page', {
         loggedIn: req.session.loggedIn
@@ -45,6 +46,7 @@ router.get('/home', (req, res) => {
 router.get('/dashboard', (req, res) => {
     if (!req.session.loggedIn) {
         res.redirect('/');
+        return;
     }
     Post.findAll({
         where: {
