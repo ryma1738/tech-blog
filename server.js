@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // handlebars
 const hbs = handlebars.create({ helpers });
-app.engine('handlebars', handlebars({
+app.engine('handlebars', hbs.engine({
   defaultLayout: 'main',
 }));
 app.set('view engine', 'handlebars');
