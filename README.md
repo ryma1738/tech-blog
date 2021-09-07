@@ -8,6 +8,9 @@ After downloading the project open up your sql terminal and type source db/schem
 ## Usage
 After you have it installed type npm start in the cmp and by default it should deploy to http://localhost:3001/. From their you can use the sites full functionality.
 
+## Website
+https://techblogschoolproject.herokuapp.com/
+
 ## Testing
 after opening it you can use one of the dummy accounts to make sure its working
 
